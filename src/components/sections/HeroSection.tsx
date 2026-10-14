@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { ArrowDown, ArrowUpRight, Mail } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Mail, Briefcase } from 'lucide-react';
 import { Github, Linkedin } from '@/components/ui/Icons';
 import FallbackSvgMesh from '@/components/3d/FallbackSvgMesh';
 
@@ -15,28 +15,34 @@ const ObservatoryCanvas = dynamic(() => import('@/components/3d/ObservatoryCanva
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] border-b border-neutral-800 bg-[#080808] text-white flex flex-col justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100vh-4rem)] border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#080808] text-neutral-900 dark:text-white flex flex-col justify-center overflow-hidden transition-colors">
       {/* Background Technical Grid */}
-      <div className="absolute inset-0 bg-grid-pattern-dark opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark opacity-50 dark:opacity-40 pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8 w-full">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
           {/* Left Column: Editorial Positioning & Headline */}
           <div className="space-y-6 lg:col-span-7">
-            {/* Monospace Position Header */}
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-neutral-400">
-              <span className="font-semibold text-neutral-200">SOUMYASHREE ROUT</span>
+            {/* Current Role Callout Badge */}
+            <div className="inline-flex items-center space-x-2 rounded-xs border border-emerald-300 dark:border-emerald-800/80 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 font-mono text-xs text-emerald-800 dark:text-emerald-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Junior Software Engineer currently working at PractmoMind</span>
+            </div>
+
+            {/* Monospace Identity Header */}
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-neutral-600 dark:text-neutral-400">
+              <span className="font-semibold text-neutral-900 dark:text-neutral-200">SOUMYASHREE ROUT</span>
               <span>—</span>
-              <span className="text-neutral-400">BACKEND & DISTRIBUTED SYSTEMS</span>
+              <span className="text-neutral-600 dark:text-neutral-400">BACKEND & DISTRIBUTED SYSTEMS</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
+            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-5xl lg:text-6xl leading-[1.1]">
               I build backend systems designed to handle complexity.
             </h1>
 
             {/* Supporting Positioning */}
-            <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-neutral-400 font-sans">
+            <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-neutral-700 dark:text-neutral-400 font-sans">
               Software engineer focused on distributed systems, replication invariants,
               concurrency contention, and high-throughput API architecture. Building resilient
               software from APIs to multi-node consensus topologies.
@@ -46,7 +52,7 @@ export default function HeroSection() {
             <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
               <Link
                 href="#projects"
-                className="inline-flex items-center space-x-2 rounded-sm bg-neutral-100 px-5 py-3 font-semibold text-black transition-all hover:bg-white"
+                className="inline-flex items-center space-x-2 rounded-sm bg-neutral-900 dark:bg-neutral-100 px-5 py-3 font-semibold text-white dark:text-black transition-all hover:bg-neutral-800 dark:hover:bg-white shadow-sm"
               >
                 <span>Explore Case Studies</span>
                 <ArrowDown className="h-4 w-4" />
@@ -56,20 +62,20 @@ export default function HeroSection() {
                 href="/resume/soumyashree-rout-cv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 rounded-sm border border-neutral-700 bg-neutral-900 px-5 py-3 font-medium text-neutral-200 transition-all hover:border-neutral-500 hover:bg-neutral-800"
+                className="inline-flex items-center space-x-2 rounded-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 px-5 py-3 font-medium text-neutral-800 dark:text-neutral-200 transition-all hover:border-neutral-400 dark:hover:border-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800"
               >
                 <span>Download Resume</span>
-                <ArrowUpRight className="h-4 w-4 text-neutral-400" />
+                <ArrowUpRight className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
               </a>
             </div>
 
-            {/* Social Links & Monospace Handles */}
-            <div className="flex items-center space-x-6 pt-4 font-mono text-xs text-neutral-400">
+            {/* Verified Social & Contact Links */}
+            <div className="flex flex-wrap items-center gap-6 pt-4 font-mono text-xs text-neutral-600 dark:text-neutral-400">
               <a
                 href="https://github.com/SoumyashreeRout"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 transition-colors hover:text-white"
+                className="inline-flex items-center space-x-1.5 transition-colors hover:text-black dark:hover:text-white"
               >
                 <Github className="h-4 w-4" />
                 <span>GitHub ↗</span>
@@ -78,14 +84,14 @@ export default function HeroSection() {
                 href="https://linkedin.com/in/soumyashree-rout"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 transition-colors hover:text-white"
+                className="inline-flex items-center space-x-1.5 transition-colors hover:text-black dark:hover:text-white"
               >
                 <Linkedin className="h-4 w-4" />
                 <span>LinkedIn ↗</span>
               </a>
               <a
                 href="mailto:soumyashree.rout.dev@gmail.com"
-                className="inline-flex items-center space-x-1.5 transition-colors hover:text-white"
+                className="inline-flex items-center space-x-1.5 transition-colors hover:text-black dark:hover:text-white"
               >
                 <Mail className="h-4 w-4" />
                 <span>Email ↗</span>
@@ -95,7 +101,14 @@ export default function HeroSection() {
 
           {/* Right Column: 3D Distributed Systems Observatory */}
           <div className="relative flex items-center justify-center lg:col-span-5">
-            <div className="w-full h-[380px] sm:h-[460px] rounded-sm border border-neutral-800/80 bg-neutral-950/40 backdrop-blur-xs overflow-hidden shadow-2xl">
+            {/* Outer 3D HUD Frame with Corner Markers */}
+            <div className="relative w-full h-[420px] sm:h-[490px] rounded-sm border border-neutral-300 dark:border-neutral-800 bg-neutral-100/60 dark:bg-neutral-950/50 backdrop-blur-md overflow-hidden shadow-2xl transition-all">
+              {/* Decorative Corner Reticles */}
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-neutral-500 dark:border-neutral-400 z-10 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-neutral-500 dark:border-neutral-400 z-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-neutral-500 dark:border-neutral-400 z-10 pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-neutral-500 dark:border-neutral-400 z-10 pointer-events-none" />
+
               <ObservatoryCanvas />
             </div>
           </div>

@@ -1,56 +1,50 @@
-export interface SkillCategory {
-  category: string;
+export interface EvidenceSkillGroup {
+  groupTitle: string;
+  badge: string;
   description: string;
   skills: {
     name: string;
-    level: 'Core' | 'Advanced' | 'Practicing';
-    notes: string;
+    context: string;
   }[];
 }
 
-export const TECHNICAL_SKILLS: SkillCategory[] = [
+export const EVIDENCE_SKILLS: EvidenceSkillGroup[] = [
   {
-    category: 'Backend & Systems Programming',
-    description: 'High-throughput runtime environments, type-safe API layers, and concurrent architectures.',
+    groupTitle: 'Used in Production at PractmoMind',
+    badge: 'Production Experience',
+    description: 'Technologies deployed, instrumented, and maintained in live services.',
     skills: [
-      { name: 'TypeScript / Node.js', level: 'Core', notes: 'Asynchronous event loop, worker threads, strict types' },
-      { name: 'Fastify & Express', level: 'Core', notes: 'Schema compilation, plugins, high-performance routing' },
-      { name: 'Python', level: 'Advanced', notes: 'Data processing scripts, simulation models, automation' },
-      { name: 'REST & WebSockets', level: 'Core', notes: 'Stateful bidirectional streams, contract definition' },
-      { name: 'gRPC & Protocol Buffers', level: 'Practicing', notes: 'Binary serialization, IDL schema contracts' },
-      { name: 'JWT & RBAC', level: 'Core', notes: 'Stateless auth tokens, cryptographic signature validation' },
+      { name: 'Node.js & Fastify', context: 'High-throughput REST & WebSocket services with <15ms p95 latency' },
+      { name: 'TypeScript', context: 'Strict type contracts across service boundaries and database access layers' },
+      { name: 'MySQL & MongoDB', context: 'Relational ACID transaction models, composite indexing, and migration pipelines' },
+      { name: 'Redis', context: 'Cache-aside with TTL jitter (1.8ms p95), session stores, and distributed locking' },
+      { name: 'Docker', context: 'Optimized multi-stage container images (160MB footprint)' },
+      { name: 'GitHub Actions', context: 'Automated CI/CD pipelines enforcing typechecking, linting, and unit tests' },
+      { name: 'OpenTelemetry', context: 'W3C traceparent propagation, distributed spans, and latency monitoring' },
     ],
   },
   {
-    category: 'Distributed Systems & Messaging',
-    description: 'Scalable consensus, event propagation, fault-tolerant replication, and idempotency.',
+    groupTitle: 'Built & Tested in My Systems Projects',
+    badge: 'Implemented & Benchmarked',
+    description: 'Core algorithmic engines designed, modeled, and tested with Vitest suites.',
     skills: [
-      { name: 'Apache Kafka', level: 'Advanced', notes: 'Event streaming, consumer groups, offset management' },
-      { name: 'Redis & Redis Streams', level: 'Core', notes: 'Pub/Sub, atomic operations, distributed caching' },
-      { name: 'Consensus & Quorums', level: 'Advanced', notes: 'W + R > N balance, Raft term election invariants' },
-      { name: 'Idempotency & Deduplication', level: 'Core', notes: 'Deterministic retry keys, at-least-once delivery' },
-      { name: 'Network Partition Handling', level: 'Advanced', notes: 'Split-brain mitigation, linearizability guarantees' },
+      { name: 'Raft Consensus State Machine', context: 'Leader elections, term tracking, and majority log commitment rules' },
+      { name: 'Quorum Consistency (W + R > N)', context: 'Selection-aware quorum set intersection and stale read detection' },
+      { name: 'Discrete-Event Scheduling', context: 'Virtual-clock event loop, priority queues, and Mulberry32 PRNG' },
+      { name: 'Queue Overload Policies', context: 'Bounded buffer backpressure and drop-tail rejection models' },
+      { name: 'RFC 8785 Canonical JSON (JCS)', context: 'Deterministic lexicographical key ordering for reproducible hashing' },
+      { name: 'SHA-256 Digest Validation', context: 'Web Crypto SubtleCrypto state verification and run manifest emission' },
+      { name: 'Ajv (Draft-07)', context: 'Strict compiled schema validation rejecting out-of-spec payloads in <0.8ms' },
     ],
   },
   {
-    category: 'Data & Storage Engineering',
-    description: 'Relational data modeling, ACID transactions, document stores, and cache topologies.',
+    groupTitle: 'Actively Exploring & Deep-Diving',
+    badge: 'Active Study & Prototyping',
+    description: 'Technologies and protocols under targeted research and experimental prototyping.',
     skills: [
-      { name: 'MySQL / PostgreSQL', level: 'Core', notes: 'Normalized schemas, indexing, foreign keys, transactions' },
-      { name: 'MongoDB', level: 'Core', notes: 'Document hierarchies, aggregation pipelines, replica sets' },
-      { name: 'Redis Cache-Aside', level: 'Core', notes: 'TTL invalidation, eviction policies, distributed locking' },
-      { name: 'Database Migrations', level: 'Core', notes: 'Version-controlled non-breaking schema evolution' },
-    ],
-  },
-  {
-    category: 'Infrastructure, DevOps & Observability',
-    description: 'Reproducible build containers, automated pipelines, and telemetric visibility.',
-    skills: [
-      { name: 'Docker', level: 'Core', notes: 'Multi-stage builds, rootless containers, compose clusters' },
-      { name: 'Kubernetes', level: 'Practicing', notes: 'Pods, Deployments, Services, ConfigMaps, health probes' },
-      { name: 'GitHub Actions CI/CD', level: 'Core', notes: 'Automated test runners, linting gates, preview deploys' },
-      { name: 'OpenTelemetry', level: 'Advanced', notes: 'Distributed traces, span context propagation, metrics' },
-      { name: 'Linux & Bash', level: 'Core', notes: 'Process monitoring, network diagnostics, shell automation' },
+      { name: 'Apache Kafka', context: 'Partition rebalancing algorithms, consumer offset commit semantics, and lag monitoring' },
+      { name: 'Protocol Buffers & gRPC', context: 'Binary wire-format serialization efficiency and IDL schema contract generation' },
+      { name: 'Kubernetes Internals', context: 'Declarative controller reconciliation, pod scheduling constraints, and service meshes' },
     ],
   },
 ];

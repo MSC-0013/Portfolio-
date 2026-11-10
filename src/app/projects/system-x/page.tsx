@@ -101,13 +101,18 @@ export default function SystemXCaseStudy() {
             {/* Invariants */}
             <div className="mt-4 space-y-2">
               <div className="font-mono text-xs font-semibold text-neutral-400 uppercase">
-                Enforced Mathematical Invariants:
+                Enforced Mathematical Invariants (Vitest Verified):
               </div>
-              <ul className="space-y-1.5 font-mono text-xs text-neutral-300">
+              <ul className="space-y-2 font-mono text-xs text-neutral-300">
                 {project.systemInvariants.map((inv, idx) => (
-                  <li key={idx} className="flex items-start space-x-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{inv}</span>
+                  <li key={idx} className="rounded border border-neutral-800 bg-neutral-900/40 p-2.5 space-y-1">
+                    <div className="flex items-start space-x-2">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <span className="font-semibold text-neutral-200">{inv.rule}</span>
+                    </div>
+                    <div className="text-[11px] text-neutral-400 pl-6">
+                      Proof: {inv.testProof}
+                    </div>
                   </li>
                 ))}
               </ul>

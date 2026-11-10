@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { ArrowDown, ArrowUpRight, Mail, Briefcase } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Mail } from 'lucide-react';
 import { Github, Linkedin } from '@/components/ui/Icons';
 import FallbackSvgMesh from '@/components/3d/FallbackSvgMesh';
 
@@ -37,15 +37,15 @@ export default function HeroSection() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-5xl lg:text-6xl leading-[1.1]">
-              I build backend systems designed to handle complexity.
+            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-5xl lg:text-6xl leading-[1.08]">
+              I build backend systems, and tools that show how they fail.
             </h1>
 
             {/* Supporting Positioning */}
             <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-neutral-700 dark:text-neutral-400 font-sans">
               Software engineer focused on distributed systems, replication invariants,
               concurrency contention, and high-throughput API architecture. Building resilient
-              software from APIs to multi-node consensus topologies.
+              software from production microservices to multi-node consensus topologies.
             </p>
 
             {/* Primary Action Buttons */}
@@ -54,7 +54,7 @@ export default function HeroSection() {
                 href="#projects"
                 className="inline-flex items-center space-x-2 rounded-sm bg-neutral-900 dark:bg-neutral-100 px-5 py-3 font-semibold text-white dark:text-black transition-all hover:bg-neutral-800 dark:hover:bg-white shadow-sm"
               >
-                <span>Explore Case Studies</span>
+                <span>Explore Systems</span>
                 <ArrowDown className="h-4 w-4" />
               </Link>
 

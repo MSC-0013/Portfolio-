@@ -2,10 +2,9 @@ import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
-import ExperienceTimeline from '@/components/sections/ExperienceTimeline';
-import EngineeringFocus from '@/components/sections/EngineeringFocus';
 import FeaturedProjects from '@/components/sections/FeaturedProjects';
 import SystemArch from '@/components/sections/SystemArch';
+import ExperienceTimeline from '@/components/sections/ExperienceTimeline';
 import SkillsMatrix from '@/components/sections/SkillsMatrix';
 import ContactSection from '@/components/sections/ContactSection';
 
@@ -21,10 +20,9 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <HeroSection />
-        <ExperienceTimeline />
-        <EngineeringFocus />
         <FeaturedProjects />
         <SystemArch />
+        <ExperienceTimeline />
         <SkillsMatrix />
         <ContactSection />
       </main>

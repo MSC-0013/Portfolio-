@@ -5,6 +5,7 @@ import { ArrowDown, Cpu, Key, Database, Zap, Activity, CheckCircle2 } from 'luci
 
 interface ArchNode {
   id: string;
+  stepNumber: string;
   name: string;
   subtitle: string;
   role: string;
@@ -17,9 +18,10 @@ interface ArchNode {
 const ARCH_NODES: ArchNode[] = [
   {
     id: 'gateway',
-    name: '01 / Edge Gateway & Ingress',
+    stepNumber: '01',
+    name: 'Edge Gateway & Ingress',
     subtitle: 'Fastify / Envoy / NGINX',
-    role: 'TLS termination, distributed rate-limiting, and request correlation ID injection.',
+    role: 'TLS termination, distributed token-bucket rate-limiting, and request correlation ID injection.',
     decisions: [
       'Token bucket algorithm for rate-limiting bursts while bounding global throughput.',
       'Injecting W3C TraceContext headers (traceparent) at ingress for end-to-end distributed observability.',
@@ -30,7 +32,8 @@ const ARCH_NODES: ArchNode[] = [
   },
   {
     id: 'auth',
-    name: '02 / Authentication & Authorization',
+    stepNumber: '02',
+    name: 'Authentication & Authorization',
     subtitle: 'Cryptographic JWT + Cached RBAC',
     role: 'Stateless signature verification with hierarchical role-based permissions.',
     decisions: [
@@ -43,9 +46,10 @@ const ARCH_NODES: ArchNode[] = [
   },
   {
     id: 'service',
-    name: '03 / Core Business Logic Layer',
+    stepNumber: '03',
+    name: 'Core Business Logic Layer',
     subtitle: 'Node.js / TypeScript / Fastify Microservices',
-    role: 'Domain logic, transactional boundaries, validation, and idempotent dispatch.',
+    role: 'Domain logic, transactional boundaries, strict input validation, and idempotent dispatch.',
     decisions: [
       'Strict schema compilation via Ajv/TypeBox on all request bodies before execution.',
       'Idempotency keys on state-mutating requests (POST/PUT) stored in Redis with atomic SETNX.',
@@ -56,7 +60,8 @@ const ARCH_NODES: ArchNode[] = [
   },
   {
     id: 'storage',
-    name: '04 / Storage & Distributed State',
+    stepNumber: '04',
+    name: 'Storage & Distributed State',
     subtitle: 'MySQL / MongoDB + Redis Cache-Aside + Kafka',
     role: 'ACID transaction boundaries, read-optimized document views, and distributed caching.',
     decisions: [
@@ -69,7 +74,8 @@ const ARCH_NODES: ArchNode[] = [
   },
   {
     id: 'observability',
-    name: '05 / Observability & Telemetry',
+    stepNumber: '05',
+    name: 'Observability & Telemetry',
     subtitle: 'OpenTelemetry + Prometheus + Distributed Tracing',
     role: 'Continuous metric aggregation, P95/P99 latency tracking, and error budgeting.',
     decisions: [
@@ -85,6 +91,8 @@ const ARCH_NODES: ArchNode[] = [
 export default function SystemArch() {
   const [selectedNode, setSelectedNode] = useState<ArchNode>(ARCH_NODES[2]); // Default to core service
 
+  const activeIndex = ARCH_NODES.findIndex((n) => n.id === selectedNode.id);
+
   return (
     <section id="architecture" className="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-[#080808] py-20 text-neutral-900 dark:text-white transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -92,7 +100,7 @@ export default function SystemArch() {
         <div className="flex flex-col justify-between border-b border-neutral-200 dark:border-neutral-800 pb-8 sm:flex-row sm:items-end">
           <div>
             <div className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-              05 / Systems Philosophy
+              02 / Architectural Framework
             </div>
             <h2 className="mt-2 font-sans text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
               How I Think About Systems
@@ -109,6 +117,7 @@ export default function SystemArch() {
           <div className="space-y-3 lg:col-span-5">
             {ARCH_NODES.map((node, index) => {
               const isSelected = selectedNode.id === node.id;
+              const isPastOrCurrent = index <= activeIndex;
               const Icon = node.icon;
 
               return (
@@ -118,7 +127,7 @@ export default function SystemArch() {
                     onClick={() => setSelectedNode(node)}
                     className={`w-full flex items-center justify-between rounded-sm border p-4 text-left transition-all ${
                       isSelected
-                        ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-100 dark:bg-neutral-900 shadow-md ring-1 ring-neutral-400'
+                        ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-100 dark:bg-neutral-900 shadow-md ring-1 ring-neutral-400 dark:ring-neutral-600'
                         : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950/60 hover:border-neutral-400 dark:hover:border-neutral-700'
                     }`}
                   >
@@ -133,23 +142,42 @@ export default function SystemArch() {
                         <Icon className="h-4 w-4" />
                       </div>
                       <div>
-                        <div className="font-mono text-xs font-bold text-neutral-900 dark:text-white">{node.name}</div>
-                        <div className="font-mono text-[11px] text-neutral-500 dark:text-neutral-400">{node.subtitle}</div>
+                        <div className="font-mono text-xs font-bold text-neutral-900 dark:text-white">
+                          <span className="text-neutral-400 mr-1.5">{node.stepNumber}</span>
+                          {node.name}
+                        </div>
+                        <div className="font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
+                          {node.subtitle}
+                        </div>
                       </div>
                     </div>
 
                     <span
                       className={`font-mono text-[10px] uppercase font-semibold ${
-                        isSelected ? 'text-emerald-600 dark:text-emerald-400' : 'text-neutral-400 dark:text-neutral-500'
+                        isSelected
+                          ? 'text-emerald-600 dark:text-emerald-400'
+                          : 'text-neutral-400 dark:text-neutral-500'
                       }`}
                     >
-                      {isSelected ? 'Active' : 'Inspect'}
+                      {isSelected ? 'Inspecting' : 'Select'}
                     </span>
                   </button>
 
                   {index < ARCH_NODES.length - 1 && (
-                    <div className="flex justify-center py-0.5">
-                      <ArrowDown className="h-4 w-4 text-neutral-400 dark:text-neutral-700" />
+                    <div className="relative flex justify-center py-1">
+                      <div className="relative flex flex-col items-center">
+                        <ArrowDown
+                          className={`h-4 w-4 transition-colors ${
+                            index < activeIndex
+                              ? 'text-emerald-500'
+                              : 'text-neutral-300 dark:text-neutral-700'
+                          }`}
+                        />
+                        {/* Animated traveling dot between active stages */}
+                        {index === activeIndex - 1 && (
+                          <span className="absolute top-0 h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                        )}
+                      </div>
                     </div>
                   )}
                 </React.Fragment>
@@ -157,19 +185,23 @@ export default function SystemArch() {
             })}
           </div>
 
-          {/* Right Column: Deep Architectural Rationale Inspector */}
-          <div className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 sm:p-8 lg:col-span-7 shadow-sm">
+          {/* Right Column: Deep Architectural Rationale Inspector with Smooth Transition */}
+          <div className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 sm:p-8 lg:col-span-7 shadow-sm transition-all duration-200">
             <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-4">
               <div className="flex items-center space-x-2">
-                {React.createElement(selectedNode.icon, { className: 'h-5 w-5 text-neutral-800 dark:text-neutral-200' })}
+                {React.createElement(selectedNode.icon, {
+                  className: 'h-5 w-5 text-neutral-800 dark:text-neutral-200',
+                })}
                 <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
-                  {selectedNode.name}
+                  {selectedNode.stepNumber} / {selectedNode.name}
                 </h3>
               </div>
-              <span className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400">{selectedNode.subtitle}</span>
+              <span className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400">
+                {selectedNode.subtitle}
+              </span>
             </div>
 
-            <div className="mt-6 space-y-6">
+            <div key={selectedNode.id} className="mt-6 space-y-6 animate-fadeIn">
               {/* Core Role */}
               <div>
                 <div className="font-mono text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase">
@@ -187,7 +219,10 @@ export default function SystemArch() {
                 </div>
                 <ul className="mt-2 space-y-2">
                   {selectedNode.decisions.map((d, i) => (
-                    <li key={i} className="flex items-start space-x-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300">
+                    <li
+                      key={i}
+                      className="flex items-start space-x-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300"
+                    >
                       <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <span>{d}</span>
                     </li>

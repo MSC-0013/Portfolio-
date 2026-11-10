@@ -72,7 +72,7 @@ export default function ContactSection() {
           {/* Left Column: Direct Invitation & Socials */}
           <div className="space-y-6 lg:col-span-6">
             <div className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-              07 / Direct Connection
+              05 / Direct Connection
             </div>
 
             <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-[1.15]">
@@ -81,7 +81,7 @@ export default function ContactSection() {
 
             <p className="text-base sm:text-lg leading-relaxed text-neutral-600 dark:text-neutral-400 font-sans">
               I am open to discussions regarding backend engineering, distributed systems,
-              concurrency challenges, and full-stack software development. Whether you want to discuss
+              concurrency challenges, and full-stack software development. Whether you want to explore
               a production architecture or discuss an engineering role, let&apos;s connect.
             </p>
 
@@ -126,7 +126,7 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center space-x-2 rounded-sm bg-neutral-900 dark:bg-neutral-100 px-5 py-3 font-mono text-xs font-semibold text-white dark:text-black transition-all hover:bg-neutral-800 dark:hover:bg-white"
               >
-                <span>Download Verified Resume (PDF)</span>
+                <span>Download Resume (PDF)</span>
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
@@ -137,9 +137,16 @@ export default function ContactSection() {
             <div className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 sm:p-8 shadow-sm">
               <div className="border-b border-neutral-200/80 dark:border-neutral-800/80 pb-4 font-mono text-xs font-semibold text-neutral-800 dark:text-neutral-300 uppercase tracking-wider flex items-center justify-between">
                 <span>Send an Engineering Dispatch</span>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">
-                  Delivered to Inbox
-                </span>
+                {status === 'success' ? (
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center space-x-1">
+                    <CheckCircle2 className="h-3 w-3" />
+                    <span>Delivered to Inbox</span>
+                  </span>
+                ) : (
+                  <span className="text-[10px] text-neutral-500 font-normal">
+                    Direct Dispatch
+                  </span>
+                )}
               </div>
 
               {status === 'success' ? (
